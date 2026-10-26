@@ -9,3 +9,5 @@ artifacts/*
 !artifacts/confusion_matrix.npy
 !artifacts/confusion_matrix.png
 *.pyc
+/AGENTS.md
+**/AGENTS.md
