@@ -20,6 +20,29 @@ if not Path('artifacts/best.pt').exists():
     st.stop()
 
 model, saved = get_model()
+
+cat_breeds = {
+    'Abyssinian', 'Bengal', 'Birman', 'Bombay', 'British Shorthair',
+    'Egyptian Mau', 'Maine Coon', 'Persian', 'Ragdoll',
+    'Russian Blue', 'Siamese', 'Sphynx',
+}
+supported_breeds = sorted(saved['class_names'])
+cats = [breed for breed in supported_breeds if breed in cat_breeds]
+dogs = [breed for breed in supported_breeds if breed not in cat_breeds]
+
+st.caption(
+    'This model recognizes only the 37 breeds in the list below. '
+    'Other breeds and animals may be assigned an incorrect label.'
+)
+with st.expander(f"See all {len(supported_breeds)} supported breeds"):
+    cat_col, dog_col = st.columns(2)
+    with cat_col:
+        st.markdown(f"**Cats ({len(cats)})**")
+        st.markdown('\n'.join(f'- {breed}' for breed in cats))
+    with dog_col:
+        st.markdown(f"**Dogs ({len(dogs)})**")
+        st.markdown('\n'.join(f'- {breed}' for breed in dogs))
+
 file = st.file_uploader('Choose an image', type=['jpg', 'jpeg', 'png'])
 if file:
     try:
