@@ -20,7 +20,7 @@ res = eval_['optimization']['validation_resolution_comparison']
 opt = ['| Input resolution | Validation accuracy | Validation macro-F1 | Median latency (ms) |', '|---|---:|---:|---:|']
 for size in ('224', '160'):
     opt.append(f"| {size}px | {res[size]['accuracy']:.4f} | {res[size]['macro_f1']:.4f} | {res[size]['median_latency_ms']:.2f} |")
-errors = eval_['errors_sample'][:6]
+errors = eval_['errors_sample'][:5]
 errs = ['| Official test index | Expected breed | Predicted breed |', '|---:|---|---|']
 errs += [f"| {x['dataset_index']} | {x['expected']} | {x['predicted']} |" for x in errors]
 
@@ -48,12 +48,8 @@ Chosen input size: **{eval_['optimization']['selected_image_size']}px**. This is
 ## Held-out test
 Evaluated the selected model once on the official test split (n={eval_['held_out_test']['count']}). **Accuracy {eval_['held_out_test']['accuracy']:.4f}; macro-F1 {eval_['held_out_test']['macro_f1']:.4f}**. Checkpoint file size: **{eval_['checkpoint_size_mb']:.2f} MB**.
 
-## Errors to inspect
-The following are measured misclassifications (indices are zero-based within the official test split). Inspect actual images before asserting any cause.
-
-{chr(10).join(errs)}
-
-Likely error classes to investigate: visual similarity between breeds, lighting/pose, background, or partly hidden animals. Confirm or reject these hypotheses through sample inspection. `confusion_matrix.npy` includes per-class counts.
+## Error sample
+The table contains the first five saved test mistakes, ordered by test index. They all have the same expected class in this run and are not a representative sample of all errors. See `REPORT.md` for the visually reviewed image observations and tentative explanations. Do not infer image-specific causes from class labels alone. `confusion_matrix.npy` contains the full per-class counts.
 
 ## Practical use and limitations
 `streamlit run app.py` opens a CPU-compatible photo-upload app with top-3 breed predictions. `python predict.py <photo>` provides CLI inference. The model always chooses among 37 known breeds; unrelated images, multiple pets, and unseen breeds may yield overconfident outputs. Softmax values are not calibrated. No object localisation or segmentation is claimed.
@@ -62,7 +58,7 @@ Likely error classes to investigate: visual similarity between breeds, lighting/
 Investigate open-set rejection, calibration, additional augmentation, quantitative robustness testing and retraining with more varied images. Reproducibility instructions, environment and dependency requirements are in `README.md`.
 
 ## AI tool usage
-See `AI_USAGE.md`; the candidate should update it to accurately describe AI help and independent verification.
+See `AI_USAGE.md` for the project's AI assistance disclosure.
 '''
 Path('FINAL_REPORT.md').write_text(report, encoding='utf-8')
-print('Wrote FINAL_REPORT.md — review the sampled mistakes against their actual images before submission.')
+print('Wrote FINAL_REPORT.md — see REPORT.md for the visual error review.')

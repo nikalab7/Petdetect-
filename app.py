@@ -16,7 +16,7 @@ def get_model():
     return load_checkpoint('artifacts/best.pt', torch.device('cpu'))
 
 if not Path('artifacts/best.pt').exists():
-    st.error('No trained weights found. Run `python train.py` and `python evaluate.py` first.')
+    st.error('Trained checkpoint not found at `artifacts/best.pt`. Restore the checkpoint file and try again.')
     st.stop()
 
 model, saved = get_model()

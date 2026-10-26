@@ -11,3 +11,7 @@ artifacts/*
 *.pyc
 /AGENTS.md
 **/AGENTS.md
+
+/PetBreedAI_20261026_results.zip
+!artifacts/run_metadata.json
+/PetBreedAI_20261026_results/
