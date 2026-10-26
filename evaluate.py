@@ -59,12 +59,18 @@ def main():
     parser.add_argument('--out-dir', default='artifacts')
     parser.add_argument('--batch-size', type=int, default=32)
     parser.add_argument('--device', default='auto', choices=['auto', 'cpu', 'cuda'])
+    parser.add_argument('--no-download', action='store_true',
+                        help='Require the Oxford-IIIT Pet dataset to already exist in --data-dir')
     args = parser.parse_args()
     device = device_for(args.device)
     out = Path(args.out_dir)
+    test_marker = out / 'official_test_started.json'
+    if test_marker.exists():
+        parser.error(f'Official test was already started for this run: {test_marker}')
     model, ckpt = load_checkpoint(out / 'best.pt', device)
     set_seed(ckpt['seed'])
-    base_trainval = OxfordIIITPet(root=args.data_dir, split='trainval', target_types='category', download=True)
+    download = not args.no_download
+    base_trainval = OxfordIIITPet(root=args.data_dir, split='trainval', target_types='category', download=download)
     labels = np.asarray(base_trainval._labels)
     _, val_idx = train_test_split(np.arange(len(labels)), test_size=0.2,
                                    stratify=labels, random_state=ckpt['seed'])
@@ -79,7 +85,12 @@ def main():
     is_faster = optimization['160']['median_latency_ms'] < optimization['224']['median_latency_ms']
     acceptable_quality = optimization['160']['macro_f1'] >= optimization['224']['macro_f1'] - 0.02
     selected_size = 160 if is_faster and acceptable_quality else 224
-    base_test = OxfordIIITPet(root=args.data_dir, split='test', target_types='category', download=True)
+    test_marker.write_text(json.dumps({
+        'selected_image_size': selected_size,
+        'device': str(device),
+        'note': 'Created before the single held-out test evaluation; do not rerun this run.',
+    }, indent=2), encoding='utf-8')
+    base_test = OxfordIIITPet(root=args.data_dir, split='test', target_types='category', download=download)
     test_ds = TransformedSubset(base_test, range(len(base_test)), make_transform(selected_size))
     test_metrics, gold, guesses = evaluate(model, test_ds, device, args.batch_size)
     names = ckpt['class_names']
@@ -97,6 +108,8 @@ def main():
         'errors_sample': errors,
         'checkpoint_size_mb': round((out / 'best.pt').stat().st_size / 1_000_000, 3),
         'device': str(device),
+        'benchmark_note': 'Latency was measured on the Colab CPU; local CPU performance may differ.'
+                         if device.type == 'cpu' else 'Latency device is recorded for each resolution.',
         'note': 'Optimization selected on validation only; test evaluated once at chosen resolution.',
     }
     (out / 'eval_results.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
