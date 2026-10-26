@@ -15,3 +15,5 @@ artifacts/*
 /PetBreedAI_20261026_results.zip
 !artifacts/run_metadata.json
 /PetBreedAI_20261026_results/
+/best.pt
+/train_results.json
