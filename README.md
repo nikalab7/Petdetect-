@@ -28,6 +28,8 @@ For Command Prompt, activate with `.venv\Scripts\activate.bat`. On macOS or Linu
 
 The trained checkpoint is already at `artifacts/best.pt`; do not download the dataset or run training/evaluation to launch the demo.
 
+The committed run outputs also include `artifacts/train_results.json`, `artifacts/eval_results.json`, `artifacts/confusion_matrix.npy`, `artifacts/confusion_matrix.png`, and `artifacts/run_metadata.json`. The five source test photos and their montage remain local and are not committed as dataset images.
+
 ```powershell
 streamlit run app.py
 ```

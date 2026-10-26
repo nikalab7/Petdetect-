@@ -6,7 +6,7 @@ Classify one cat or dog photograph into one of 37 Oxford-IIIT Pet breeds. The sy
 
 ## Dataset and preprocessing
 
-The run used the official Oxford-IIIT Pet `trainval` split with a stratified 80/20 split and seed 42: 2,944 training and 736 validation images. The official test set contains 3,669 images. Training ran on Colab CUDA; input-size latency and the final held-out test were measured on the Colab CPU. Colab CPU timing is not a prediction of local CPU speed.
+The run used the official Oxford-IIIT Pet `trainval` split with a stratified 80/20 split, seed 42, and batch size 32: 2,944 training and 736 validation images. The official test set contains 3,669 images. Training ran on Colab CUDA; input-size latency and the final held-out test were measured on the Colab CPU. Colab CPU timing is not a prediction of local CPU speed.
 
 Training augmentation used random resized crop and horizontal flip. Validation and test used deterministic resize and center crop. All images were normalized with ImageNet mean and standard deviation.
 
@@ -21,7 +21,7 @@ The model is ImageNet-pretrained MobileNetV3-Small with a 37-class output layer.
 
 Fine-tuning improved validation accuracy by 0.02989 and macro-F1 by 0.03047. The last feature blocks could adapt pretrained visual features to breed-level cues; the lower validation loss and higher validation metrics are consistent with that explanation. The independent test result below is lower than the best validation result, so the validation improvement should not be treated as a guarantee of equal performance on new images.
 
-The checkpoint is 6.335 MB. `artifacts/run_metadata.json` preserves the Colab source commit and package/runtime versions. The original run folder was `/content/drive/MyDrive/PetBreedAI/runs/20261026_155151_utc`.
+The checkpoint is 6.335 MB. `artifacts/run_metadata.json` preserves the source commit (`c8f7f48`), Python 3.13.16, PyTorch 2.11.0+cu130, torchvision 0.26.0+cu130, CUDA 13.0, and the other package versions. The original run folder was `/content/drive/MyDrive/PetBreedAI/runs/20261026_155151_utc`.
 
 ## Input-resolution comparison
 
