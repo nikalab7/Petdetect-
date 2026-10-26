@@ -44,7 +44,7 @@ Keep `train_results.json`, `eval_results.json`, `confusion_matrix.npy` and `best
 
 ## Demo
 
-`streamlit run app.py` launches a local image-upload UI. It displays the image and top 3 breed predictions. The CLI alternative is `python predict.py path/to/photo.jpg`. No paid API, hosted application, or GPU required for inference. For a reviewer, include model weights via GitHub Releases or a downloadable link, or precise model-download/reproduction instructions; **Git ignores weight files by default**.
+`streamlit run app.py` launches a local image-upload UI. It displays the image and top 3 breed predictions. The CLI alternative is `python predict.py path/to/photo.jpg`. No paid API, hosted application, or GPU required for inference. The final checkpoint can be committed at `artifacts/best.pt`; dataset files and other model checkpoints stay out of Git.
 
 ## Project files
 
