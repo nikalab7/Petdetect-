@@ -21,26 +21,21 @@ Open `PetBreedAI_Training.ipynb` in Google Colab, choose a GPU runtime when avai
 
 The initial run uses 3 head-only epochs and 3 fine-tuning epochs. Review its validation accuracy, macro-F1, and loss before deciding whether to train for more epochs. Each run receives a separate output folder.
 
-## Assess and run the demo
+## Completed results and local demo
+
+Training and the final held-out evaluation are complete for the Colab run recorded in `REPORT.md`. The selected model uses 224px input: 160px was about 19.7% faster on the Colab CPU, but its validation macro-F1 was 0.06803 lower and failed the 0.02 quality-loss limit. The held-out test reached 0.86018 accuracy and 0.85872 macro-F1 on 3,669 images.
+
+The Colab notebook includes cells to visualize the saved confusion matrix and five actual test mistakes, then download the checkpoint and result files as one ZIP. These cells read the completed run and do not retrain or reevaluate it.
+
+For local inference, place the final `best.pt` at `artifacts/best.pt` and run:
 
 ```bash
-# Run after copying the completed training output into artifacts/
-python evaluate.py
-python make_report.py
-python -m pytest -q
 streamlit run app.py
+# or
+python predict.py path/to/photo.jpg
 ```
 
-To assess a checkpoint downloaded from Drive, place `best.pt` and `train_results.json` in `artifacts/`. Then run `python evaluate.py`. The training notebook downloads Oxford-IIIT Pet and ImageNet weights, splits the official `trainval` set **stratified 80/20** with seed 42, and runs two trainable stages:
-
-1. `head_only`: ImageNet backbone frozen; train new 37-class classifier.
-2. `fine_tune`: unfreeze the final two feature blocks, train them at smaller learning rate.
-
-After every epoch, training loss, validation loss, accuracy and macro-F1 are recorded and saved to the run folder. The best validation macro-F1 determines `best.pt`, which is updated during training so it is retained if a Colab session stops. The official `test` split is never used for tuning.
-
-`evaluate.py` compares 224px vs 160px **inference input resolution** on validation accuracy, macro-F1 and measured latency. It adopts 160px only if latency improves and validation macro-F1 decreases by no more than 0.02. It then tests the selected setup on the held-out official test split. Evaluation saves a confusion matrix (`.npy`) and sample mistakes.
-
-Keep `train_results.json`, `eval_results.json`, `confusion_matrix.npy` and `best.pt` together for reproducibility.
+Do not run `train.py` or `evaluate.py` to launch the completed demo. Training and the one-time held-out evaluation are already finished. For an intentional future experiment, use a new run folder and a fresh evaluation record.
 
 ## Demo
 
@@ -54,7 +49,7 @@ Keep `train_results.json`, `eval_results.json`, `confusion_matrix.npy` and `best
 - `app.py`, `predict.py`: working demo and CLI.
 - `tests/test_core.py`: basic no-download smoke tests.
 - `PetBreedAI_Training.ipynb`: minimal Google Colab training notebook.
-- `REPORT.md`: technical report template; `make_report.py` creates `FINAL_REPORT.md` after real measurements.
+- `REPORT.md`: current report with the measured run results; `make_report.py` can regenerate a numerical report from the saved JSON files in `artifacts/`.
 - `AI_USAGE.md`: AI tooling disclosure.
 
 ## Limitations
