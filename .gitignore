@@ -1,0 +1,11 @@
+__pycache__/
+.pytest_cache/
+.venv/
+data/
+artifacts/*
+!artifacts/best.pt
+!artifacts/train_results.json
+!artifacts/eval_results.json
+!artifacts/confusion_matrix.npy
+!artifacts/confusion_matrix.png
+*.pyc
