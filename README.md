@@ -1,6 +1,6 @@
 # PetBreed AI — End-to-End Computer Vision
 
-37-class cat/dog breed classification with a pretrained **MobileNetV3-Small**. Uses **Oxford-IIIT Pet** and PyTorch. Training is run in Google Colab; the notebook is `PetBreedAI_Training.ipynb`.
+37-class cat/dog breed classification with a pretrained **MobileNetV3-Small**. Uses **Oxford-IIIT Pet** and PyTorch. Training is run in Google Colab; [open the training notebook in Colab](https://colab.research.google.com/github/nikalab7/Petdetect-/blob/main/PetBreedAI_Training.ipynb).
 
 ## Requirements
 
