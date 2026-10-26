@@ -1,0 +1,67 @@
+{
+  "dataset": "Oxford-IIIT Pet trainval",
+  "classes": 37,
+  "device": "cuda",
+  "seed": 42,
+  "train_count": 2944,
+  "validation_count": 736,
+  "batch_size": 32,
+  "max_epochs": {
+    "head_only": 3,
+    "fine_tune": 3
+  },
+  "torch_version": "2.11.0+cu130",
+  "torchvision_version": "0.26.0+cu130",
+  "experiment_history": [
+    {
+      "stage": "head_only",
+      "epoch": 1,
+      "train_loss": 1.21723,
+      "validation_loss": 0.57551,
+      "accuracy": 0.8125,
+      "macro_f1": 0.8081518482264696
+    },
+    {
+      "stage": "head_only",
+      "epoch": 2,
+      "train_loss": 0.42541,
+      "validation_loss": 0.46305,
+      "accuracy": 0.8410326086956522,
+      "macro_f1": 0.8389045260698883
+    },
+    {
+      "stage": "head_only",
+      "epoch": 3,
+      "train_loss": 0.29484,
+      "validation_loss": 0.40071,
+      "accuracy": 0.8586956521739131,
+      "macro_f1": 0.8589715137060461
+    },
+    {
+      "stage": "fine_tune",
+      "epoch": 1,
+      "train_loss": 0.37933,
+      "validation_loss": 0.38404,
+      "accuracy": 0.8831521739130435,
+      "macro_f1": 0.8832973947567485
+    },
+    {
+      "stage": "fine_tune",
+      "epoch": 2,
+      "train_loss": 0.23575,
+      "validation_loss": 0.38538,
+      "accuracy": 0.8845108695652174,
+      "macro_f1": 0.886277387541804
+    },
+    {
+      "stage": "fine_tune",
+      "epoch": 3,
+      "train_loss": 0.18849,
+      "validation_loss": 0.36622,
+      "accuracy": 0.8885869565217391,
+      "macro_f1": 0.8894455626567456
+    }
+  ],
+  "selected_stage": "fine_tune",
+  "best_validation_macro_f1": 0.8894455626567456
+}

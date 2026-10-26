@@ -1,0 +1,133 @@
+{
+  "optimization": {
+    "validation_resolution_comparison": {
+      "224": {
+        "accuracy": 0.8885869565217391,
+        "macro_f1": 0.8894455626567456,
+        "median_latency_ms": 11.04,
+        "measured_images": 45,
+        "device": "cpu"
+      },
+      "160": {
+        "accuracy": 0.8206521739130435,
+        "macro_f1": 0.8214185648102739,
+        "median_latency_ms": 8.87,
+        "measured_images": 45,
+        "device": "cpu"
+      }
+    },
+    "selected_image_size": 224,
+    "selection_rule": "160px only if faster and validation macro-F1 falls <=0.02"
+  },
+  "held_out_test": {
+    "accuracy": 0.8601798855273917,
+    "macro_f1": 0.8587173492939697,
+    "count": 3669
+  },
+  "errors_sample": [
+    {
+      "dataset_index": 0,
+      "expected": "Abyssinian",
+      "predicted": "Chihuahua"
+    },
+    {
+      "dataset_index": 2,
+      "expected": "Abyssinian",
+      "predicted": "Miniature Pinscher"
+    },
+    {
+      "dataset_index": 4,
+      "expected": "Abyssinian",
+      "predicted": "Bombay"
+    },
+    {
+      "dataset_index": 10,
+      "expected": "Abyssinian",
+      "predicted": "Yorkshire Terrier"
+    },
+    {
+      "dataset_index": 12,
+      "expected": "Abyssinian",
+      "predicted": "Bengal"
+    },
+    {
+      "dataset_index": 14,
+      "expected": "Abyssinian",
+      "predicted": "British Shorthair"
+    },
+    {
+      "dataset_index": 16,
+      "expected": "Abyssinian",
+      "predicted": "Russian Blue"
+    },
+    {
+      "dataset_index": 17,
+      "expected": "Abyssinian",
+      "predicted": "Bengal"
+    },
+    {
+      "dataset_index": 20,
+      "expected": "Abyssinian",
+      "predicted": "Chihuahua"
+    },
+    {
+      "dataset_index": 35,
+      "expected": "Abyssinian",
+      "predicted": "Miniature Pinscher"
+    },
+    {
+      "dataset_index": 43,
+      "expected": "Abyssinian",
+      "predicted": "Ragdoll"
+    },
+    {
+      "dataset_index": 44,
+      "expected": "Abyssinian",
+      "predicted": "Bengal"
+    },
+    {
+      "dataset_index": 45,
+      "expected": "Abyssinian",
+      "predicted": "Egyptian Mau"
+    },
+    {
+      "dataset_index": 50,
+      "expected": "Abyssinian",
+      "predicted": "Ragdoll"
+    },
+    {
+      "dataset_index": 53,
+      "expected": "Abyssinian",
+      "predicted": "Shiba Inu"
+    },
+    {
+      "dataset_index": 69,
+      "expected": "Abyssinian",
+      "predicted": "Chihuahua"
+    },
+    {
+      "dataset_index": 86,
+      "expected": "Abyssinian",
+      "predicted": "British Shorthair"
+    },
+    {
+      "dataset_index": 92,
+      "expected": "Abyssinian",
+      "predicted": "Maine Coon"
+    },
+    {
+      "dataset_index": 103,
+      "expected": "American Bulldog",
+      "predicted": "Boxer"
+    },
+    {
+      "dataset_index": 115,
+      "expected": "American Bulldog",
+      "predicted": "Staffordshire Bull Terrier"
+    }
+  ],
+  "checkpoint_size_mb": 6.335,
+  "device": "cpu",
+  "benchmark_note": "Latency was measured on the Colab CPU; local CPU performance may differ.",
+  "note": "Optimization selected on validation only; test evaluated once at chosen resolution."
+}
